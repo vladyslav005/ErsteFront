@@ -1,0 +1,6 @@
+.map-container {
+    position: absolute;
+    z-index: -1000;
+    height: 500px;
+    width: 100vw;
+}
