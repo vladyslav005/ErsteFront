@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import {useUserLocation} from "../../../common/hook/LocationHook";
 
 const drawerBleeding = 56;
 
@@ -59,6 +60,7 @@ export const BottomSheet = (props: Props) => {
   // This is used only for the example
   // drawer-container
   const container = window !== undefined ? () => window().document.body : undefined;
+
 
   return (
       <Root>
