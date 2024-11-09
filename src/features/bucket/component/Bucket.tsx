@@ -130,15 +130,15 @@ export function Bucket(props: BucketProps): JSX.Element {
 
 
           <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={handleOpenAddProductDialog}>
-            Pridať produkt do košíka
+            Add product to cart
           </Button>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
-            Zrušiť
+            Cancel
           </Button>
           <Button  color="primary" onClick={ () => {handleCloseDialog()}}>
-            Uložiť košík
+            Save cart
           </Button>
         </DialogActions>
       </Dialog>
@@ -146,38 +146,38 @@ export function Bucket(props: BucketProps): JSX.Element {
       {/* Add product  modal*/}
 
       <Dialog open={openProductDialog} onClose={handleCloseAddProductDialog}>
-          <DialogTitle>Pridať produkt</DialogTitle>
+          <DialogTitle>Add product</DialogTitle>
           <DialogContent>
             <TextField
-                label="Názov produktu"
+                label="Product name"
                 fullWidth
                 value={addedProductName}
                 onChange={(e) => setAddedProductName(e.target.value)}
                 sx={{ mb: 2 }}
             />
 
-            <TextField
-                label="Značka"
-                fullWidth
-                // value={brand}
-                // onChange={(e) => setBrand(e.target.value)}
-                sx={{ mb: 2 }}
-            />
-            <TextField
-                label="Obchod"
-                fullWidth
-                // value={store}
-                // onChange={(e) => setStore(e.target.value)}
-                sx={{ mb: 2 }}
-            />
+            {/*<TextField*/}
+            {/*    label="Značka"*/}
+            {/*    fullWidth*/}
+            {/*    // value={brand}*/}
+            {/*    // onChange={(e) => setBrand(e.target.value)}*/}
+            {/*    sx={{ mb: 2 }}*/}
+            {/*/>*/}
+            {/*<TextField*/}
+            {/*    label="Obchod"*/}
+            {/*    fullWidth*/}
+            {/*    // value={store}*/}
+            {/*    // onChange={(e) => setStore(e.target.value)}*/}
+            {/*    sx={{ mb: 2 }}*/}
+            {/*/>*/}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseAddProductDialog} color="primary">
-              Zrušiť
+              Cancel
             </Button>
             {/*<Button onClick={handleSaveProduct} color="primary">*/}
             <Button color="primary" onClick={handleProductAdding}>
-              Pridať produkt
+              Add
             </Button>
           </DialogActions>
       </Dialog>

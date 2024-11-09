@@ -25,7 +25,7 @@ interface BucketProviderProps {
 export const BucketsState = (props: BucketProviderProps) => {
   const [bucketList, setBucketList] = useState<BucketInterface[]>([
     {
-      name: "Example Bucket",
+      name: "Example Cart",
       products: ["Product 1", "Product 2"],
     }
   ])

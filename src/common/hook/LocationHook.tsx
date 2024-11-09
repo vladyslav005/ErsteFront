@@ -4,7 +4,7 @@ export function useUserLocation() {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const getLocation = () => {
     if (!navigator.geolocation) {
       setError('Geolocation is not supported by your browser');
       return;
@@ -21,13 +21,16 @@ export function useUserLocation() {
 
     const watchId = navigator.geolocation.watchPosition(handleSuccess, handleError);
 
+    console.log(location);
+
     // Cleanup function to stop watching the location when the component unmounts
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
-  }, []);
 
-  return { location, error };
+  };
+
+  return { getLocation, location, error };
 }
 
 export default useUserLocation;

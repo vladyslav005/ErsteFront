@@ -9,7 +9,12 @@ import {BucketsPage} from "../pages/BucketsPage";
 import MenuDrawer from "../features/menudrawer/component/MenuDrawer";
 
 function App() {
-  // const { location, error }  = useUserLocation();
+  const { getLocation, location, error }  = useUserLocation();
+
+  useEffect(() => {
+    getLocation();
+    console.log("App:" + location);
+  }, []);
 
   return (
       <>

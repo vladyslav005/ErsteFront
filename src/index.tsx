@@ -7,6 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import {MenuState} from "./features/menudrawer/context/MenuDrawerContext";
 import {BucketContext, BucketsState} from "./features/bucket/context/BucketContext";
+import {LocationState} from "./features/map/context/LocationContext";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -20,7 +21,9 @@ root.render(
       <BrowserRouter>
         <MenuState>
           <BucketsState>
+            <LocationState>
             <App/>
+            </LocationState>
           </BucketsState>
         </MenuState>
       </BrowserRouter>

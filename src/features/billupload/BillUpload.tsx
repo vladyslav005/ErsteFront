@@ -30,7 +30,7 @@ export const BillUpload = () => {
             style={{display: 'none'}} // Hide the input
         />
 
-        <Button variant="contained" component="span" color="primary" sx={{mr: 2}}>
+        <Button variant="contained" component="span" color="primary" sx={{mr: 3}}>
           Scan Bill
         </Button>
       </label>

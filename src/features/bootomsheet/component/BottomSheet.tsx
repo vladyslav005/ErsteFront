@@ -9,6 +9,19 @@ import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import {useUserLocation} from "../../../common/hook/LocationHook";
+import {useContext} from "react";
+import {BucketContext} from "../../bucket/context/BucketContext";
+import {Bucket} from "../../bucket/component/Bucket";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Add from "@mui/icons-material/Add";
+import List from "@mui/material/List";
+import InboxIcon from "@mui/icons-material/Inbox";
+import ListItemText from "@mui/material/ListItemText";
+import {BucketInterface, BucketList} from "../../bucket/component/BucketList";
+import {LocationContext} from "../../map/context/LocationContext";
+
 
 const drawerBleeding = 56;
 
@@ -52,6 +65,50 @@ const Puller = styled('div')(({theme}) => ({
 export const BottomSheet = (props: Props) => {
   const {window} = props;
   const [open, setOpen] = React.useState(false);
+
+
+  const {bucketList, setBucketList} = useContext(BucketContext)
+
+
+  const {markerLocation, setMarkerLocation} = useContext(LocationContext);
+
+  const handleBucketProcessing = (bucketName: string) => {
+    let index = -1
+    for (let i = 0; i < bucketList.length; i++) {
+      const bucket = bucketList[i];
+      if (bucket.name === bucketName) {
+        index = i;
+        break;
+      }
+    }
+
+    let bucket = bucketList[index]
+
+    //SEND BUCKET TO BACK
+    console.log(bucketName)
+
+
+    fetch("http://172.20.10.4:8080/stores?userId=1&latitude=17.1071&longitude=48.1481&bucketId=6", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Network response was not ok. Status: ${response.status} - ${response.statusText}`);
+          }
+          return response.json(); // Parse the response as JSON
+        })
+        .then(data => {
+          console.log("Success:", data); // Log the parsed data
+        })
+        .catch(error => {
+          console.error("Error:", error.message || error); // Display a meaningful error message
+        });
+
+  }
+
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -101,10 +158,28 @@ export const BottomSheet = (props: Props) => {
               }}
           >
             <Puller/>
-            <Typography sx={{p: 2, color: 'text.secondary'}}>51 results</Typography>
+            <Typography sx={{p: 2, color: 'text.secondary'}}>Choose bucket</Typography>
           </StyledBox>
           <StyledBox sx={{px: 2, pb: 2, height: '100%', overflow: 'auto'}}>
-            <Skeleton variant="rectangular" height="100%"/>
+
+            <List>
+
+
+              {
+                bucketList.map((bucket : BucketInterface) => (
+                    <ListItemButton onClick={() => handleBucketProcessing(bucket.name)} key={bucket.name}>
+                      <ListItemIcon>
+                        <InboxIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={bucket.name} />
+                    </ListItemButton>
+                ))
+              }
+
+
+            </List>
+
+
           </StyledBox>
         </SwipeableDrawer>
       </Root>

@@ -18,6 +18,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {MenuDrawerContext} from "../context/MenuDrawerContext";
 import {useNavigate} from "react-router-dom";
+import {Stars} from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -120,7 +121,7 @@ export default function MenuDrawer() {
               }}>
                 <ListItemButton>
                   <ListItemIcon>
-                    <InboxIcon/>
+                    <Stars/>
                   </ListItemIcon>
                   <ListItemText primary={"Main"}/>
                 </ListItemButton>
@@ -133,7 +134,7 @@ export default function MenuDrawer() {
                   <ListItemIcon>
                     <InboxIcon/>
                   </ListItemIcon>
-                  <ListItemText primary={"Buckets"}/>
+                  <ListItemText primary={"Carts"}/>
                 </ListItemButton>
               </ListItem>
           </List>

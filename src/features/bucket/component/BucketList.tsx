@@ -118,10 +118,10 @@ export const BucketList = () => {
 
 
     <Dialog open={addBucketDialog} onClose={handleCloseAddBucket}>
-      <DialogTitle>Add new bucket</DialogTitle>
+      <DialogTitle>Add new cart</DialogTitle>
       <DialogContent>
         <TextField
-            label="Bucket name"
+            label="Cart name"
             fullWidth
             value={addBucketName}
             onChange={(e) => {
@@ -138,7 +138,7 @@ export const BucketList = () => {
         </Button>
         {/*<Button onClick={handleSaveProduct} color="primary">*/}
         <Button color="primary" onClick={handleBucketAdding}>
-          Add Bucket
+          Add Cart
         </Button>
       </DialogActions>
     </Dialog>
