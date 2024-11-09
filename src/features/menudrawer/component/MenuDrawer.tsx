@@ -17,6 +17,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {MenuDrawerContext} from "../context/MenuDrawerContext";
+import {useNavigate} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -84,6 +85,7 @@ export default function MenuDrawer() {
 
   const {open, setOpen} = useContext(MenuDrawerContext);
 
+  const navigate = useNavigate();
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -112,16 +114,28 @@ export default function MenuDrawer() {
           </DrawerHeader>
           <Divider/>
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                <ListItem key={text} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                    </ListItemIcon>
-                    <ListItemText primary={text}/>
-                  </ListItemButton>
-                </ListItem>
-            ))}
+              <ListItem key={"Main"} disablePadding onClick={() => {
+                navigate("/")
+                setOpen(false)
+              }}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <InboxIcon/>
+                  </ListItemIcon>
+                  <ListItemText primary={"Main"}/>
+                </ListItemButton>
+              </ListItem>
+              <ListItem key={"Buckets"} disablePadding onClick={() => {
+                navigate("/buckets")
+                setOpen(false)
+              }}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <InboxIcon/>
+                  </ListItemIcon>
+                  <ListItemText primary={"Buckets"}/>
+                </ListItemButton>
+              </ListItem>
           </List>
           <Divider/>
           <List>

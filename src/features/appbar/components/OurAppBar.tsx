@@ -16,7 +16,7 @@ export const OurAppBar = () => {
 
   return (
 
-      <Box sx={{flexGrow: 1}}>
+      <Box sx={{flexGrow: 1, width: '100vw'}}>
         <AppBar position="static">
           <Toolbar variant="dense"
                    sx={{
