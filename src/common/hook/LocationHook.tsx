@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 
 export function useUserLocation() {
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [location, setLocation] = useState({latitude: null, longitude: null});
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -10,12 +10,12 @@ export function useUserLocation() {
       return;
     }
 
-    const handleSuccess = (position : any) => {
-      const { latitude, longitude } = position.coords;
-      setLocation({ latitude, longitude });
+    const handleSuccess = (position: any) => {
+      const {latitude, longitude} = position.coords;
+      setLocation({latitude, longitude});
     };
 
-    const handleError = (error : any) => {
+    const handleError = (error: any) => {
       setError(error.message);
     };
 
@@ -27,7 +27,7 @@ export function useUserLocation() {
     };
   }, []);
 
-  return { location, error };
+  return {location, error};
 }
 
 export default useUserLocation;

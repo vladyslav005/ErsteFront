@@ -1,14 +1,20 @@
 import * as React from 'react';
+import {useContext} from 'react';
 import {Global} from '@emotion/react';
 import {styled} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {grey} from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import {useUserLocation} from "../../../common/hook/LocationHook";
+import {BucketContext} from "../../bucket/context/BucketContext";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import List from "@mui/material/List";
+import InboxIcon from "@mui/icons-material/Inbox";
+import ListItemText from "@mui/material/ListItemText";
+import {BucketInterface} from "../../bucket/component/BucketList";
 
 const drawerBleeding = 56;
 
@@ -53,6 +59,15 @@ export const BottomSheet = (props: Props) => {
   const {window} = props;
   const [open, setOpen] = React.useState(false);
 
+  const {bucketList, setBucketList} = useContext(BucketContext)
+
+
+  const handleBucketProcessing = (bucketName: string) => {
+
+
+  }
+
+
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -76,6 +91,7 @@ export const BottomSheet = (props: Props) => {
         <Box sx={{textAlign: 'center', pt: 1}}>
           <Button onClick={toggleDrawer(true)}>Open</Button>
         </Box>
+
         <SwipeableDrawer
             container={container}
             anchor="bottom"
@@ -101,10 +117,25 @@ export const BottomSheet = (props: Props) => {
               }}
           >
             <Puller/>
-            <Typography sx={{p: 2, color: 'text.secondary'}}>51 results</Typography>
+            <Typography sx={{p: 2, color: 'text.secondary'}}>Choose bucket</Typography>
           </StyledBox>
           <StyledBox sx={{px: 2, pb: 2, height: '100%', overflow: 'auto'}}>
-            <Skeleton variant="rectangular" height="100%"/>
+
+            <List>
+
+              {
+                bucketList.map((bucket: BucketInterface) => (
+                    <ListItemButton onClick={() => handleBucketProcessing(bucket.name)}>
+                      <ListItemIcon>
+                        <InboxIcon/>
+                      </ListItemIcon>
+                      <ListItemText primary={bucket.name}/>
+                    </ListItemButton>
+                ))
+              }
+
+            </List>
+
           </StyledBox>
         </SwipeableDrawer>
       </Root>

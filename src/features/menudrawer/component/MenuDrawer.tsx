@@ -18,67 +18,9 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {MenuDrawerContext} from "../context/MenuDrawerContext";
 import {useNavigate} from "react-router-dom";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
 const drawerWidth = 240;
-
-const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
-  open?: boolean;
-}>(({theme}) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: `-${drawerWidth}px`,
-  variants: [
-    {
-      props: ({open}) => open,
-      style: {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      },
-    },
-  ],
-}));
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({theme}) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  variants: [
-    {
-      props: ({open}) => open,
-      style: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(['margin', 'width'], {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      },
-    },
-  ],
-}));
-
-const DrawerHeader = styled('div')(({theme}) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
 
 export default function MenuDrawer() {
   const theme = useTheme();
@@ -91,51 +33,63 @@ export default function MenuDrawer() {
     setOpen(false);
   };
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
   return (
       <Box sx={{display: 'flex'}}>
         <CssBaseline/>
-        <Drawer
+        <SwipeableDrawer
             sx={{
               width: drawerWidth,
               flexShrink: 0,
               '& .MuiDrawer-paper': {
                 width: drawerWidth,
+                height: '100vh',
                 boxSizing: 'border-box',
               },
             }}
-            variant="persistent"
+            // variant="temporary"
             anchor="left"
             open={open}
+            onClose={handleDrawerClose}
+            onOpen={handleDrawerOpen}
         >
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
+          {/*<Box sx={{flexDirection: 'row'}}>*/}
+            <IconButton onClick={handleDrawerClose}
+              sx={{
+                justifyContent: 'flex-end', alignItems: 'center',
+                marginRight: "10px",
+            }}
+            >
               {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
             </IconButton>
-          </DrawerHeader>
+          {/*</Box>*/}
           <Divider/>
           <List>
-              <ListItem key={"Main"} disablePadding onClick={() => {
-                navigate("/")
-                setOpen(false)
-              }}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <InboxIcon/>
-                  </ListItemIcon>
-                  <ListItemText primary={"Main"}/>
-                </ListItemButton>
-              </ListItem>
-              <ListItem key={"Buckets"} disablePadding onClick={() => {
-                navigate("/buckets")
-                setOpen(false)
-              }}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <InboxIcon/>
-                  </ListItemIcon>
-                  <ListItemText primary={"Buckets"}/>
-                </ListItemButton>
-              </ListItem>
+            <ListItem key={"Main"} disablePadding onClick={() => {
+              navigate("/")
+              setOpen(false)
+            }}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon/>
+                </ListItemIcon>
+                <ListItemText primary={"Main"}/>
+              </ListItemButton>
+            </ListItem>
+            <ListItem key={"Buckets"} disablePadding onClick={() => {
+              navigate("/buckets")
+              setOpen(false)
+            }}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon/>
+                </ListItemIcon>
+                <ListItemText primary={"Buckets"}/>
+              </ListItemButton>
+            </ListItem>
           </List>
           <Divider/>
           <List>
@@ -150,7 +104,7 @@ export default function MenuDrawer() {
                 </ListItem>
             ))}
           </List>
-        </Drawer>
+        </SwipeableDrawer>
       </Box>
   );
 }

@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import Button from "@mui/material/Button";
+import {Paper} from "@mui/material";
+import {CameraAltOutlined} from "@mui/icons-material";
 
 
 export const BillUpload = () => {
@@ -30,9 +32,13 @@ export const BillUpload = () => {
             style={{display: 'none'}} // Hide the input
         />
 
-        <Button variant="contained" component="span" color="primary" sx={{mr: 2}}>
-          Scan Bill
-        </Button>
+        {/*<Paper elevation={24} sx={{ bgcolor: 'primary.main', padding: '0px', mr:2}}>*/}
+          <Button disableElevation={false} variant="contained" component="div" sx={{ mr:4}}
+            startIcon={<CameraAltOutlined/>}
+          >
+            Scan Bill
+          </Button>
+        {/*</Paper>*/}
       </label>
 
   );

@@ -1,10 +1,10 @@
-import React, {createContext, Dispatch, useState} from 'react';
+import React, {createContext, useState} from 'react';
 import {BucketInterface} from "../component/BucketList";
 
 
 interface BucketContextInterface {
-  bucketList : BucketInterface[],
-  setBucketList : (bucketList : BucketInterface[]) => void,
+  bucketList: BucketInterface[],
+  setBucketList: (bucketList: BucketInterface[]) => void,
 }
 
 
@@ -14,7 +14,8 @@ export const BucketContext = createContext<BucketContextInterface>({
     products: ["Product 1", "Product 2"],
   }],
 
-  setBucketList : (bucketList : BucketInterface[]) => {},
+  setBucketList: (bucketList: BucketInterface[]) => {
+  },
 
 })
 
@@ -37,7 +38,7 @@ export const BucketsState = (props: BucketProviderProps) => {
 
   return (
       <BucketContext.Provider value={contextValue}>
-          {props.children}
+        {props.children}
       </BucketContext.Provider>
   );
 

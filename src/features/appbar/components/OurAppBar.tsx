@@ -21,11 +21,9 @@ export const OurAppBar = () => {
           <Toolbar variant="dense"
                    sx={{
                      justifyContent: 'flex-end',
-                     backgroundColor: ''
+                     backgroundColor: 'primary.light',
                    }}
           >
-
-
             <BillUpload></BillUpload>
 
 

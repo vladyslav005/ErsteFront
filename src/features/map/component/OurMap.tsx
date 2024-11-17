@@ -2,13 +2,17 @@ import './Map.css'
 
 import React, {useState} from "react";
 import {Map, Marker} from "@vis.gl/react-google-maps";
+import useUserLocation from "../../../common/hook/LocationHook";
 
 
 export const OurMap = () => {
 
+  const {location, error} = useUserLocation();
+
+
   const [markerLocation, setMarkerLocation] = useState({
-    lat: 51.509865,
-    lng: -0.118092,
+    lat: location.latitude ? location.latitude : 0,
+    lng: location.longitude ? location.longitude : 0,
   });
 
   return (

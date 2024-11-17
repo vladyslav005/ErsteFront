@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { Box, Typography, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import React, {useState} from 'react';
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from '@mui/material';
 
 
-
-function BasketSection({ title , items, bgColor, onAddBasket }) {
+function BasketSection({title, items, bgColor, onAddBasket}) {
     return (
         <Box
             sx={{
@@ -17,7 +16,7 @@ function BasketSection({ title , items, bgColor, onAddBasket }) {
                 minWidth: 400,
             }}
         >
-            <Typography variant="h6" sx={{ bgcolor: 'transparent', p: 1, borderRadius: 1 }}>
+            <Typography variant="h6" sx={{bgcolor: 'transparent', p: 1, borderRadius: 1}}>
                 {title}
             </Typography>
             {items.map((item, index) => (
@@ -37,7 +36,7 @@ function BasketSection({ title , items, bgColor, onAddBasket }) {
             ))}
 
             {title === 'Moje košíky' && (
-                <Button variant="contained" sx={{ mt: 2 }} onClick={onAddBasket}>
+                <Button variant="contained" sx={{mt: 2}} onClick={onAddBasket}>
                     Pridať košík
                 </Button>
             )}
@@ -45,7 +44,7 @@ function BasketSection({ title , items, bgColor, onAddBasket }) {
     );
 }
 
-export  function BasketsContainer() {
+export function BasketsContainer() {
 
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -64,7 +63,6 @@ export  function BasketsContainer() {
     const [bucketProduct, setBucketProduct] = useState()
 
 
-
     const handleAddBasket = () => {
         setOpenDialog(true);
     };
@@ -75,7 +73,7 @@ export  function BasketsContainer() {
 
     const handleSaveBasket = () => {
         // Сохранение корзины (например, API вызов)
-        console.log('Košík vytvorený:', { basketName, products });
+        console.log('Košík vytvorený:', {basketName, products});
         setOpenDialog(false);
     };
 
@@ -88,7 +86,7 @@ export  function BasketsContainer() {
     };
 
     const handleSaveProduct = () => {
-        setProducts([...products, { productName, brand, store }]);
+        setProducts([...products, {productName, brand, store}]);
         setProductName('');
         setBrand('');
         setStore('');
@@ -127,9 +125,9 @@ export  function BasketsContainer() {
                         fullWidth
                         value={basketName}
                         onChange={(e) => setBasketName(e.target.value)}
-                        sx={{ mb: 2 }}
+                        sx={{mb: 2}}
                     />
-                    <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={handleAddProduct}>
+                    <Button variant="contained" fullWidth sx={{mt: 2}} onClick={handleAddProduct}>
                         Pridať produkt do košíka
                     </Button>
                 </DialogContent>
@@ -152,21 +150,21 @@ export  function BasketsContainer() {
                         fullWidth
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
-                        sx={{ mb: 2 }}
+                        sx={{mb: 2}}
                     />
                     <TextField
                         label="Značka"
                         fullWidth
                         value={brand}
                         onChange={(e) => setBrand(e.target.value)}
-                        sx={{ mb: 2 }}
+                        sx={{mb: 2}}
                     />
                     <TextField
                         label="Obchod"
                         fullWidth
                         value={store}
                         onChange={(e) => setStore(e.target.value)}
-                        sx={{ mb: 2 }}
+                        sx={{mb: 2}}
                     />
                 </DialogContent>
                 <DialogActions>

@@ -1,18 +1,5 @@
-
-import React, { useState } from 'react';
-import {
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Typography,
-  Box,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField
-} from '@mui/material';
+import React, {useState} from 'react';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -21,11 +8,14 @@ import ListItemText from "@mui/material/ListItemText";
 import {BucketInterface} from "./BucketList";
 import List from "@mui/material/List";
 import {Delete} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import {red} from "@mui/material/colors";
+import Divider from "@mui/material/Divider";
 
 
 interface BucketProps {
   title: string;
-  products : string[];
+  products: string[];
 
   setBucketList: (bucketList: BucketInterface[]) => void;
   handleBucketDelete: (bucketName: string) => void;
@@ -40,7 +30,6 @@ export function Bucket(props: BucketProps): JSX.Element {
   const [addedProductName, setAddedProductName] = useState('');
 
   const [openProductDialog, setOpenProductDialog] = useState(false);
-
 
 
   const handleProductAdding = () => {
@@ -72,8 +61,6 @@ export function Bucket(props: BucketProps): JSX.Element {
   }
 
 
-
-
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
@@ -86,74 +73,79 @@ export function Bucket(props: BucketProps): JSX.Element {
 
   return (
       <>
-      <ListItem disablePadding >
-        <ListItemButton onClick={handleOpenDialog}>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary={props.title} />
-        </ListItemButton>
+        <ListItem disablePadding sx={{position: 'relative'}}>
+          <ListItemButton onClick={handleOpenDialog}>
+            <ListItemIcon>
+              <InboxIcon/>
+            </ListItemIcon>
+            <ListItemText primary={props.title}/>
+          </ListItemButton>
 
 
 
-      <ListItemButton onClick={() => {
-        props.handleBucketDelete(props.title)
-      }}
-        sx={{
-          justifyContent: 'flex-end',
-        }}
+          <IconButton onClick={() => {
+            props.handleBucketDelete(props.title)
+          }}
+            sx={{
+              marginRight: 2,
+              right: "0",
+              position: 'absolute',
+            }}
+          >
+            <Delete sx={{color: red[300]}}></Delete>
+          </IconButton>
 
-      >
-        <ListItemIcon>
-          <Delete></Delete>
-        </ListItemIcon>
-      </ListItemButton>
+        </ListItem>
 
-      </ListItem>
-
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{props.title}</DialogTitle>
-        <DialogContent>
-
-
-          <List>
-
-            {
-              productList.map((product) => (
-                  <div id={props.title + product}>
-                    <Product handleProductRemove={handleProductRemove} productName={product} products={props.products} />
-                  </div>
-              ))
-            }
-
-          </List>
-
-
-          <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={handleOpenAddProductDialog}>
-            Pridať produkt do košíka
-          </Button>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Zrušiť
-          </Button>
-          <Button  color="primary" onClick={ () => {handleCloseDialog()}}>
-            Uložiť košík
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Add product  modal*/}
-
-      <Dialog open={openProductDialog} onClose={handleCloseAddProductDialog}>
-          <DialogTitle>Pridať produkt</DialogTitle>
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+          <DialogTitle>{props.title}</DialogTitle>
           <DialogContent>
+
+
+            <List>
+
+              {
+                productList.map((product) => (
+                    <>
+                    <div id={props.title + product}>
+                      <Product handleProductRemove={handleProductRemove} productName={product}
+                               products={props.products}/>
+                    </div>
+                    </>
+
+                ))
+              }
+
+            </List>
+
+
+            <Button variant="contained" fullWidth sx={{mt: 2}} onClick={handleOpenAddProductDialog}>
+              Pridať produkt do košíka
+            </Button>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">
+              Zrušiť
+            </Button>
+            <Button color="primary" onClick={() => {
+              handleCloseDialog()
+            }}>
+              Uložiť košík
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        {/* Add product  modal*/}
+
+        <Dialog open={openProductDialog} onClose={handleCloseAddProductDialog}>
+          <DialogTitle>Pridať produkt</DialogTitle>
+          <DialogContent sx={{marginTop: 2}}>
             <TextField
                 label="Názov produktu"
                 fullWidth
                 value={addedProductName}
                 onChange={(e) => setAddedProductName(e.target.value)}
-                sx={{ mb: 2 }}
+                sx={{mb: 2}}
             />
 
             <TextField
@@ -161,14 +153,14 @@ export function Bucket(props: BucketProps): JSX.Element {
                 fullWidth
                 // value={brand}
                 // onChange={(e) => setBrand(e.target.value)}
-                sx={{ mb: 2 }}
+                sx={{mb: 2}}
             />
             <TextField
                 label="Obchod"
                 fullWidth
                 // value={store}
                 // onChange={(e) => setStore(e.target.value)}
-                sx={{ mb: 2 }}
+                sx={{mb: 2}}
             />
           </DialogContent>
           <DialogActions>
@@ -180,9 +172,7 @@ export function Bucket(props: BucketProps): JSX.Element {
               Pridať produkt
             </Button>
           </DialogActions>
-      </Dialog>
-
-
+        </Dialog>
 
 
       </>
@@ -190,43 +180,41 @@ export function Bucket(props: BucketProps): JSX.Element {
 }
 
 
-
 interface ProductProps {
   productName: string;
-  products : string[]
+  products: string[]
   handleProductRemove: (productName: string) => void;
 }
 
-const Product = (props : ProductProps) => {
+const Product = (props: ProductProps) => {
 
   return (
+      <>
       <ListItem disablePadding>
-        <ListItemButton>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary={props.productName} />
-        </ListItemButton>
+        <ListItemText primary={props.productName}  sx={{padding: -1}} ></ListItemText>
 
 
-        <ListItemButton onClick={() => {
-          props.handleProductRemove(props.productName)
-        }}
+        {/*<ListItemButton onClick={() => {*/}
+        {/*  props.handleProductRemove(props.productName)*/}
+        {/*}}*/}
 
-          sx={{
-            justifyContent: 'flex-end',
-          }}
-        >
-          <ListItemIcon
+        {/*  sx={{*/}
+        {/*    justifyContent: 'flex-end',*/}
+        {/*  }}*/}
+        {/*>*/}
+          <IconButton
               sx={{
                 justifyContent: 'flex-end',
               }}
           >
-            <Delete></Delete>
-          </ListItemIcon>
-        </ListItemButton>
+            <Delete sx={{color: red[300]}}></Delete>
+          </IconButton>
+        {/*</ListItemButton>*/}
 
 
       </ListItem>
+      <Divider variant="fullWidth" sx={{zIndex: 1000} } />
+
+      </>
   )
 }
